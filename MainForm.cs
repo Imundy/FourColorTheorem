@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -30,7 +31,7 @@ namespace FourColorTheorem
 
             //create pictureBox
             pictureBox = new PictureBox();
-            pictureBox.Size = new Size(750, 500);
+            pictureBox.Size = new Size(1000, 650);
             pictureBox.BorderStyle = BorderStyle.Fixed3D;
             pictureBox.TabStop = false;
             pictureBox.Location = new Point(0, 0);
@@ -85,6 +86,8 @@ namespace FourColorTheorem
         {
             if (adjacencyList.Count < 1) { return; };
 
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
             bool colored = false;
             while(!colored)
             {
@@ -117,10 +120,18 @@ namespace FourColorTheorem
                         }
                     }
                 }else{ colored = true; };
+                if (stopwatch.ElapsedMilliseconds > 10000)
+                {
+                    break;
+                }
             }
-
-            paintColors();
-
+            if (colored)
+            {
+                paintColors();
+            }else
+            {
+                resetButton.PerformClick();
+            }
         }
 
         private void MainForm_Load(object sender, EventArgs e)
