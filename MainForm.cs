@@ -117,6 +117,22 @@ namespace FourColorTheorem
                                 }
                             }
                             break;
+                        }else if(color.Equals("YELLOW"))
+                        {
+                            myPoints[i-1].color="";
+                            foreach (ColorPoint cp in myPoints)
+                            {
+                                if (adjacencyList[cp].Contains(myPoints[i - 1]))
+                                {
+                                    int index = adjacencyList[cp].IndexOf(myPoints[i - 1]);
+                                    adjacencyList[cp][index] = myPoints[i - 1];
+                                }
+                            }
+                            
+
+                            ColorPoint tmp = myPoints[i];
+                            myPoints[i] = myPoints[0];
+                            myPoints[0] = tmp;
                         }
                     }
                 }else{ colored = true; };
